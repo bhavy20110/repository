@@ -9,17 +9,8 @@ export default async function handler(req, res) {
       return;
     }
 
-    // Get the 'id' parameter from the query
-    const { id } = req.query;
-
-    // Check if 'id' parameter is provided
-    if (!id) {
-      res.status(400).json({ error: "Missing 'id' query parameter." });
-      return;
-    }
-
-    // Build the proxied URL
-    const proxiedUrl = https://m3u8-proxy-six.vercel.app/m3u8-proxy?url=https://amitb3669.github.io/jiobe.m3u?id=${id}&headers=%7B%22referer%22%3A%22https%3A%2F%2F9anime.pl%22%7D;
+    // Define the static M3U8 URL
+    const m3u8Url = "https://amit.allinonereborn.in/jiobe.m3u8?id=1091";
 
     // Set CORS and cache headers
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,10 +18,10 @@ export default async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Cache-Control", "public, max-age=10");
 
-    // Redirect to the proxied URL
-    res.redirect(302, proxiedUrl);
+    // Redirect to the M3U8 URL (or fetch it if required)
+    res.redirect(302, m3u8Url);
   } catch (error) {
-    console.error("Error in proxy handler:", error);
+    console.error("Error in M3U8 handler:", error);
     res.status(500).json({ error: "Internal server error." });
   }
 }
